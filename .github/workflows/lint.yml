@@ -1,6 +1,6 @@
 on: ["push"]
 
-name: Build
+name: Lints
 
 jobs:
   fmt:

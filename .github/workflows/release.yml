@@ -1,0 +1,59 @@
+on:
+  push:
+    branches:
+      - main
+
+name: Release Build
+
+jobs:
+  linux:
+    name: Build on Linux
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+
+      - name: Install stable toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+
+      - name: Run cargo build
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --release
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: lunpack-linux
+          path: target/release/lunpack
+
+  windows:
+    name: Build on Windows
+    runs-on: windows-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+
+      - name: Install stable toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+
+      - name: Run cargo build
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --release
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: lunpack-win
+          path: target/release/lunpack.exe

@@ -1,0 +1,13 @@
+[package]
+name = "lunpack"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+env_logger = "0.9"
+log = "0.4"
+argh = "0.1.7"
+globset = "0.4.8"
+tokio = { version = "1", features = ["full"] }
+tokio-stream = { version = "0.1.8", features = ["io-util"] }
+assembly-pack = "0.3.4"

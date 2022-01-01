@@ -319,6 +319,7 @@ dependencies = [
  "env_logger",
  "globset",
  "log",
+ "thiserror",
  "tokio",
  "tokio-stream",
 ]

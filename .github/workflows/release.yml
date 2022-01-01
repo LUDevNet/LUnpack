@@ -57,3 +57,4 @@ jobs:
         with:
           name: lunpack-win
           path: target/release/lunpack.exe
+

@@ -7,9 +7,11 @@ use globset::{Glob, GlobSetBuilder};
 use log::LevelFilter;
 use std::{
     collections::BTreeMap,
+    error::Error,
     io::{self, Read},
     path::{Path, PathBuf},
 };
+use thiserror::Error;
 use tokio_stream::wrappers::LinesStream;
 
 use tokio::{
@@ -117,8 +119,36 @@ impl<'a> Task<'a> {
     }
 }
 
+#[derive(Error)]
+pub enum UnpackError {
+    #[error("generic I/O error")]
+    IO(#[from] io::Error),
+    #[error("could not find {0}")]
+    FileNotFound(String, #[source] io::Error),
+    #[error("unknown error")]
+    Unknown,
+}
+
+impl std::fmt::Debug for UnpackError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        writeln!(f, "{}", self)?;
+
+        let mut src_opt: Option<&dyn std::error::Error> = self.source().as_ref().copied();
+        if src_opt.is_some() {
+            writeln!(f)?;
+            writeln!(f, "Caused by:")?;
+        }
+        while let Some(src) = src_opt {
+            writeln!(f, "\t{}", src)?;
+            src_opt = src.source();
+        }
+
+        Ok(())
+    }
+}
+
 #[tokio::main]
-async fn main() -> Result<(), io::Error> {
+async fn main() -> Result<(), UnpackError> {
     env_logger::builder()
         .format_timestamp(None)
         .filter_level(LevelFilter::Info)
@@ -155,7 +185,9 @@ async fn main() -> Result<(), io::Error> {
     }
     let globset = builder.build().unwrap();
 
-    let file = File::open(trunk).await?;
+    let file = File::open(&trunk)
+        .await
+        .map_err(|e| UnpackError::FileNotFound(trunk.display().to_string(), e))?;
     let reader = BufReader::new(file);
     let mut trunk_lines = LinesStream::new(reader.lines());
 

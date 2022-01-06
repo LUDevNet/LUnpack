@@ -5,6 +5,6 @@ exclude:
   - Cargo.toml
   - Cargo.lock
 
-theme: jekyll-theme-minimal
+remote_theme: LUDevNet/minimal
 show_latest_release: true
 show_downloads: true

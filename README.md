@@ -1,4 +1,4 @@
-# LUnpack
+# LU Client Unpacker
 
 Command line tool to unpack LU clients.
 

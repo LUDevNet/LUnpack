@@ -12,9 +12,9 @@ If you're on windows, use `lunpack.exe`
 
 ## Install
 
-If you have [Rust](https://rust-lang.org) installed, you can use `cargo install --git https://github.com/Xiphoseer/LUnpack.git`.
+If you have [Rust](https://rust-lang.org) installed, you can use `cargo install --git https://github.com/LUDevNet/LUnpack.git`.
 
-Otherwise, you can download a release from <https://github.com/Xiphoseer/LUnpack/releases>.
+Otherwise, you can download a release from <https://github.com/LUDevNet/LUnpack/releases>.
 
 ## Options
 

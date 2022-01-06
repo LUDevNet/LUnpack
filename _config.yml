@@ -6,3 +6,5 @@ exclude:
   - Cargo.lock
 
 theme: jekyll-theme-minimal
+show_latest_release: true
+show_downloads: true

@@ -6,6 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 {% seo %}
+    <style>
+      .downloads.two li {
+        width: 135px;
+      }
+
+      .downloads.two li + li {
+        border-right: none;
+      }
+    </style>
     <link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
     <!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -40,9 +49,10 @@
         {% endif %}
 
         {% if site.show_latest_release and site.github.releases.size > 0 %}
-        <ul class="downloads">
+        <h3>Latest Release: {{site.github.releases[0].name}}</h3>
+        <ul class="downloads two">
           {% for asset in site.github.releases[0].assets %}
-          <li><a href="{{ asset.browser_download_url }}">Download <strong>{{asset.label}}</strong></a></li>
+          <li><a href="{{ asset.browser_download_url }}">Download <strong>{{asset.name}}</strong></a></li>
           {% endfor %}
         </ul>
         {% endif %}

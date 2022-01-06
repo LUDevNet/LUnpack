@@ -3,3 +3,5 @@ exclude:
   - src
   - Cargo.toml
   - Cargo.lock
+
+theme: jekyll-theme-minimal
